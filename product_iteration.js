@@ -38,7 +38,7 @@ Here are some examples for different thesis categories:
 Our business thesis is:
 ${thesis}
 
-First, think about which category the thesis belongs in. Then, provide a header and slogan. Do not use inappropriate or rude words.
+Provide a header and slogan. Do not use inappropriate or rude words. Do not emit any text other than the JSON containing the header and slogan
 `
 
 export const generateImageTagsPrompt = (
