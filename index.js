@@ -7,10 +7,10 @@ import * as openai from './openai.js'
 import iterateProduct from './product_iteration.js'
 
 mongoose.connect(process.env.DATABASE_URL)
-const EVENT_TRIGGER = 10
+const EVENT_TRIGGER = 3
 const app = express()
 app.use(express.json())
-app.use(function (_req, res, next) {
+app.use(function(_req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
@@ -30,13 +30,13 @@ app.post('/replicate-prompt', async (req, res) => {
 app.post('/purchase', async (req, res) => {
   const { context, business } = req.body
   const event = await Models.Event.create({ context, business, type: 'purchase' })
-  const eventCount = await Models.Event.countDocuments({ business })
+  const eventCount = await Models.Event.countDocuments({ business }).exec()
 
   if (eventCount % EVENT_TRIGGER === 0) {
     // trigger mutation
     console.log('mutation triggered')
     const business = await Models.Business.findOne({ _id: business }).exec()
-    const events = await Models.Event.find({ business }).limit(10).exec()
+    const events = await Models.Event.find({ business }).limit(3).exec()
     await iterateProduct(business, events)
   }
 
@@ -46,12 +46,12 @@ app.post('/purchase', async (req, res) => {
 app.post('/feedback', async (req, res) => {
   const { context, business } = req.body
   const event = await Models.Event.create({ context, business, type: 'feedback' })
-  const eventCount = await Models.Event.countDocuments({ business })
+  const eventCount = await Models.Event.countDocuments({ business }).exec()
 
   if (eventCount % EVENT_TRIGGER === 0) {
     console.log('mutation triggered')
     const business = await Models.Business.findOne({ _id: business }).exec()
-    const events = await Models.Event.find({ business }).limit(10).exec()
+    const events = await Models.Event.find({ business }).limit(3).exec()
     await iterateProduct(business, events)
   }
 
