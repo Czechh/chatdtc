@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import BusinessController from './controllers/business.js'
 import * as Models from './models.js'
+import * as openai from 'openai.js'
 
 mongoose.connect(process.env.DATABASE_URL)
 
