@@ -60,6 +60,7 @@ export const generateWebsiteBannerPrompt = (tags) => `header, pattern, ${tags}`
 export const generateAdsPrompt = (tags) => `eye-catching, clothing advertisement, minimal, ${tags}`
 
 async function getNewData(business, events) {
+  console.log('events', events)
   const marketingPrompt = generateMarketingInsightPrompt(events, business.marketingInsight)
   const newMarketingInsight = await openai.prompt(marketingPrompt)
   const thesisPrompt = generateThesisPrompt(newMarketingInsight, business.philosophy)
