@@ -9,7 +9,7 @@ const SHIRT_BASE64 =
 
 export const prompt = (p) =>
   replicate.run(
-    'rossjillian/controlnet:d55b9f2dcfb156089686b8f767776d5b61b007187a4e1e611881818098100fbb',
+    "jagilley/controlnet:8ebda4c70b3ea2a2bf86e44595afb562a2cdf85525c620f1671a78113c9f325b",
     {
       input: {
         image: SHIRT_BASE64,
