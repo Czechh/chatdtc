@@ -1,18 +1,31 @@
 import { prompt } from '../openai.js'
 import { Business } from '../models.js'
-import { generateThesisPrompt } from '../product_iteration.js'
+import { generateImageTagsPrompt, generateThesisPrompt } from '../product_iteration.js'
 
 export default class BusinessController {
   static async create(req, res) {
-    const { name, philosophy } = req.body
-    const thesisPrompt = generateThesisPrompt(philosophy)
-    const thesis = await prompt(thesisPrompt);
+    const { philosophy } = req.body
+    const thesisPrompt = generateThesisPrompt('NONE', philosophy)
+    const thesis = await prompt(thesisPrompt)
+    const imageTagPrompt = generateImageTagsPrompt(thesis)
+    const sloganHeaderPrompt = generateSloganAndHeaderPrompt(thesis)
+    const [imageTags, sloganAndHeader] = await Promise.all([
+      prompt(imageTagPrompt),
+      prompt(sloganHeaderPrompt),
+    ])
+
+    const { slogan, header } = JSON.parse(sloganAndHeader)
+    const bannerPrompt = generateWebsiteBannerPrompt(imageTags)
+    const banner = await promptImage(bannerPrompt)
 
     const business = await Business.create({
-      name,
       philosophy,
       marketInsight: 'NONE',
       thesis,
+      banner,
+      slogan,
+      header,
+      imageTags,
     })
 
     return res.send({ data: business })

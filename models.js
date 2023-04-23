@@ -5,6 +5,10 @@ const businessSchema = new mongoose.Schema({
   philosophy: String,
   thesis: String,
   marketingInsight: String,
+  banner: String,
+  slogan: String,
+  header: String,
+  imageTags: String,
 })
 export const Business = mongoose.model('Business', businessSchema)
 

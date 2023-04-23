@@ -14,11 +14,11 @@ export const prompt = async (prompt) =>
     })
     .then((res) => res.data.choices[0].text)
 
-export const promptImage = (prompt) =>
+export const promptImage = (prompt, dim = '1024x1024') =>
   openai
     .createImage({
       prompt,
       n: 1,
-      size: '1024x1024',
+      size: dim, // 896x912
     })
     .then((res) => res.data.data[0].url)
