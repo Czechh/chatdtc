@@ -56,7 +56,7 @@ ${thesis}
 First, think about which category the thesis belongs in. Then, provide a series of tags in quotations. Only provide 4-5 tags at maximum.
 `
 
-export const generateWebsiteBannerPrompt = (tags) => `website banner, header, pattern, ${tags}`
+export const generateWebsiteBannerPrompt = (tags) => `header, pattern, ${tags}`
 export const generateAdsPrompt = (tags) => `eye-catching, clothing advertisement, minimal, ${tags}`
 
 async function getNewData(business, events) {
@@ -85,7 +85,7 @@ async function getNewData(business, events) {
   }
 
   const bannerPrompt = generateWebsiteBannerPrompt(imageTags)
-  const newBanner = await promptImage(bannerPrompt, '896x512')
+  const newBanner = await promptImage(bannerPrompt)
 
   return {
     newThesis,
