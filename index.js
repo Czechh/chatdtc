@@ -10,7 +10,7 @@ mongoose.connect(process.env.DATABASE_URL)
 const EVENT_TRIGGER = 3
 const app = express()
 app.use(express.json())
-app.use(function(_req, res, next) {
+app.use(function (_req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
@@ -36,7 +36,7 @@ app.post('/purchase', async (req, res) => {
     // trigger mutation
     console.log('mutation triggered')
     const businessDb = await Models.Business.findOne({ _id: business }).exec()
-    const events = await Models.Event.find({ business }).limit(3).exec()
+    const events = await Models.Event.find({ business }).sort({ _id: -1 }).limit(3).exec()
     await iterateProduct(businessDb, events)
   }
 
@@ -51,7 +51,7 @@ app.post('/feedback', async (req, res) => {
   if (eventCount % EVENT_TRIGGER === 0) {
     console.log('mutation triggered')
     const businessDb = await Models.Business.findOne({ _id: business }).exec()
-    const events = await Models.Event.find({ business }).limit(3).exec()
+    const events = await Models.Event.find({ business }).sort({ _id: -1 }).limit(3).exec()
     await iterateProduct(businessDb, events)
   }
 
