@@ -31,4 +31,14 @@ app.get('/products/:id', async (req, res) => {
   return res.send({ data: product })
 })
 
+app.post('/prompt-text', async (req, res) => {
+  const result = await openai.prompt(req.body.prompt)
+  res.send(result)
+})
+
+app.post('/prompt-image', async (req, res) => {
+  const result = await openai.promptImage(req.body.prompt)
+  res.send(result)
+})
+
 app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}`))
