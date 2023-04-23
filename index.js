@@ -9,7 +9,7 @@ mongoose.connect(process.env.DATABASE_URL)
 const EVENT_TRIGGER = 10
 const app = express()
 app.use(express.json())
-app.use(function(_req, res, next) {
+app.use(function (_req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')

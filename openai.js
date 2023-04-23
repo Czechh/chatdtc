@@ -7,10 +7,15 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration)
 
 export const prompt = async (prompt) => {
-  const completion = await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo',
-    messages: [{ role: 'user', content: prompt }],
-  })
+  const completion = await openai
+    .createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }],
+    })
+    .catch((err) => {
+      console.log(err)
+      return 'ERROR'
+    })
 
   const completion_text = completion.data.choices[0].message.content
   return completion_text
