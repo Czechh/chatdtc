@@ -84,7 +84,7 @@ async function getNewData(business, events) {
     console.log(err)
   }
 
-  const bannerPrompt = generateWebsiteBannerPrompt(imageTags)
+  const bannerPrompt = generateWebsiteBannerPrompt(newImageTags)
   const newBanner = await openai.promptImage(bannerPrompt)
 
   return {
