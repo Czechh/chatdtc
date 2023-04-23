@@ -12,9 +12,14 @@ export default class BusinessController {
       "theme": "string",
       "product": "string",
       "targetDemographic": "string"
+
+      Business Name and Philosophy:
+      Name: ${name}
+      Philosophy: ${description}
+      Result:
       `)
 
-    console.log(promptRes)
+    console.log(promptRes);
     return res.send({ data: business })
   }
 
