@@ -85,7 +85,7 @@ async function getNewData(business, events) {
   }
 
   const bannerPrompt = generateWebsiteBannerPrompt(imageTags)
-  const newBanner = await promptImage(bannerPrompt)
+  const newBanner = await promptImage(bannerPrompt, '896x912')
 
   return {
     newThesis,
