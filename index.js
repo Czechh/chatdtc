@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import BusinessController from './controllers/business.js'
 import * as Models from './models.js'
+import * as Replicate from './stable.js'
 import * as openai from './openai.js'
 import iterateProduct from './product_iteration.js'
 
@@ -9,7 +10,7 @@ mongoose.connect(process.env.DATABASE_URL)
 const EVENT_TRIGGER = 10
 const app = express()
 app.use(express.json())
-app.use(function (_req, res, next) {
+app.use(function(_req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
