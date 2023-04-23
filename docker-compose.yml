@@ -1,18 +1,18 @@
-version: '3'
+version: "3"
 services:
   server:
     restart: always
     build: ./
     ports:
-      - '8080:8080'
+      - "8080:8080"
     volumes:
       - .:/app
-    command: 'npm run dev'
+    command: "npm run dev"
     env_file:
       - .env
     environment:
       PORT: 8080
-      NODE_ENV: 'production'
+      NODE_ENV: "production"
 
   # database:
   #   image: mongo
