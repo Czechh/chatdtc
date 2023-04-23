@@ -68,8 +68,8 @@ async function getNewData(business, events) {
   const imageTagPrompt = generateImageTagsPrompt(newThesis)
   const sloganHeaderPrompt = generateSloganAndHeaderPrompt(newThesis)
   const [newImageTags, sloganAndHeader] = await Promise.all([
-    prompt(imageTagPrompt),
-    prompt(sloganHeaderPrompt),
+    openai.prompt(imageTagPrompt),
+    openai.prompt(sloganHeaderPrompt),
   ])
 
   let slogan = ''
@@ -85,7 +85,7 @@ async function getNewData(business, events) {
   }
 
   const bannerPrompt = generateWebsiteBannerPrompt(imageTags)
-  const newBanner = await promptImage(bannerPrompt)
+  const newBanner = await openai.promptImage(bannerPrompt)
 
   return {
     newThesis,
