@@ -1,5 +1,5 @@
 import Replicate from 'replicate'
-
+import fs from 'fs'
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 })
@@ -9,10 +9,10 @@ const SHIRT_BASE64 =
 
 export const prompt = (p) =>
   replicate.run(
-    "jagilley/controlnet:8ebda4c70b3ea2a2bf86e44595afb562a2cdf85525c620f1671a78113c9f325b",
+    'jagilley/controlnet:8ebda4c70b3ea2a2bf86e44595afb562a2cdf85525c620f1671a78113c9f325b',
     {
       input: {
-        image: SHIRT_BASE64,
+        image: fs.createReadStream('./whitetee.png'),
         prompt: p,
       },
     }
