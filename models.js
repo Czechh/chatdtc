@@ -28,4 +28,4 @@ const eventSchema = new mongoose.Schema({
   type: String,
   context: String,
 })
-export const Order = mongoose.model('Event', eventSchema)
+export const Event = mongoose.model('Event', eventSchema)
