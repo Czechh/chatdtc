@@ -12,10 +12,10 @@ export const prompt = async (p) =>
     prompt: 'Hello world',
   })
 
-export const promptImage = (p) =>
+export const promptImage = (prompt) =>
   openai
     .createImage({
-      prompt: prompt,
+      prompt,
       n: 1,
       size: '1024x1024',
     })
