@@ -9,7 +9,7 @@ const openai = new OpenAIApi(configuration)
 export const prompt = async (prompt) =>
   openai
     .createCompletion({
-      model: 'text-davinci-003',
+      model: 'gpt-3.5-turbo',
       prompt,
     })
     .then((res) => res.data.choices[0].text)
