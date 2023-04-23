@@ -3,9 +3,10 @@ import mongoose from 'mongoose'
 import BusinessController from './controllers/business.js'
 import * as Models from './models.js'
 import * as openai from './openai.js'
+import iterateProduct from './product_iteration.js'
 
 mongoose.connect(process.env.DATABASE_URL)
-
+const EVENT_TRIGGER = 10
 const app = express()
 app.use(express.json())
 
@@ -13,30 +14,41 @@ app.get('/', (_req, res) => res.send({ now: Date.now() }))
 app.post('/businesses', (req, res) => BusinessController.create(req, res))
 app.get('/businesses/:id', (req, res) => BusinessController.getOne(req, res))
 
-app.post('/product', async (req, res) => {
-  const { name, price } = req.body
-  const product = await Models.Product.create({ name, price, quantity: 0 })
+app.post('/purchase', async (req, res) => {
+  const { context, business } = req.body
+  const event = await Models.Event.create({ context, business, type: 'purchase' })
+  const eventCount = await Models.Event.countDocuments({ business })
 
-  return res.send({ data: product })
+  if (eventCount % EVENT_TRIGGER === 0) {
+    // trigger mutation
+    console.log('mutation triggered')
+    const business = await Models.Business.findOne({ _id: business }).exec()
+    const events = await Models.Events.find({ business }).limit(10).exec()
+    await iterateProduct(business, events)
+  }
+
+  return res.send({ data: event })
 })
 
-app.get('/products', async (req, res) => {
-  const products = await Models.Product.find().exec()
-  return res.send({ data: products })
-})
+app.post('/feedback', async (req, res) => {
+  const { context, business } = req.body
+  const event = await Models.Event.create({ context, business, type: 'feedback' })
+  const eventCount = await Models.Event.countDocuments({ business })
 
-app.get('/products/:id', async (req, res) => {
-  const product = await Models.Product.findOne({ _id: req.params.id }).exec()
-  if (!product) return res.status(404).send({ error: 'Product not found' })
+  if (eventCount % EVENT_TRIGGER === 0) {
+    console.log('mutation triggered')
+    const business = await Models.Business.findOne({ _id: business }).exec()
+    const events = await Models.Events.find({ business }).limit(10).exec()
+    await iterateProduct(business, events)
+  }
 
-  return res.send({ data: product })
+  return res.send({ data: event })
 })
 
 app.post('/prompt-text', async (req, res) => {
   const result = await openai.prompt(req.body.prompt)
   res.send(result)
 })
-
 app.post('/prompt-image', async (req, res) => {
   const result = await openai.promptImage(req.body.prompt)
   res.send(result)

@@ -7,11 +7,12 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration)
 
 export const prompt = async (prompt) =>
-  openai.createCompletion({
-    model: 'text-davinci-003',
-    prompt,
-  })
-    .then(res => res.data.choices[0].text)
+  openai
+    .createCompletion({
+      model: 'text-davinci-003',
+      prompt,
+    })
+    .then((res) => res.data.choices[0].text)
 
 export const promptImage = (prompt) =>
   openai
