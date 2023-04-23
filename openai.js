@@ -9,7 +9,7 @@ const openai = new OpenAIApi(configuration)
 export const prompt = async (prompt) => {
   const completion = await openai
     .createChatCompletion({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4',
       messages: [{ role: 'user', content: prompt }],
     })
     .catch((err) => {
