@@ -1,6 +1,11 @@
 import { prompt, promptImage } from '../openai.js'
 import { Business } from '../models.js'
-import { generateImageTagsPrompt, generateThesisPrompt, generateSloganAndHeaderPrompt, generateWebsiteBannerPrompt } from '../product_iteration.js'
+import {
+  generateImageTagsPrompt,
+  generateThesisPrompt,
+  generateSloganAndHeaderPrompt,
+  generateWebsiteBannerPrompt,
+} from '../product_iteration.js'
 
 export default class BusinessController {
   static async create(req, res) {

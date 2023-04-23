@@ -8,11 +8,11 @@ const openai = new OpenAIApi(configuration)
 
 export const prompt = async (prompt) => {
   const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: prompt }],
-  });
+    model: 'gpt-3.5-turbo',
+    messages: [{ role: 'user', content: prompt }],
+  })
 
-  const completion_text = completion.data.choices[0].message.content;
+  const completion_text = completion.data.choices[0].message.content
   return completion_text
 }
 
@@ -32,10 +32,7 @@ export const promptImage = (prompt, dim = '1024x1024') =>
     })
     .then((res) => res.data.data[0].url)
 
-
-
 // try {
-
 
 //   history.push([user_input, completion_text]);
 
