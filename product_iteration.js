@@ -72,7 +72,18 @@ async function getNewData(business, events) {
     prompt(sloganHeaderPrompt),
   ])
 
-  const { slogan, header } = JSON.parse(sloganAndHeader)
+  let slogan = ''
+  let header = ''
+  console.log(sloganAndHeader)
+
+  try {
+    const parsedJob = JSON.parse(sloganAndHeader)
+    slogan = parsedJob.slogan
+    header = parsedJob.header
+  } catch (err) {
+    console.log(err)
+  }
+
   const bannerPrompt = generateWebsiteBannerPrompt(imageTags)
   const newBanner = await promptImage(bannerPrompt)
 
