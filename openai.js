@@ -11,6 +11,7 @@ export const prompt = async (p) =>
     model: 'text-davinci-003',
     prompt: 'Hello world',
   })
+    .then(res => res.data.choices[0].text)
 
 export const promptImage = (prompt) =>
   openai
