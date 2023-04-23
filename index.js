@@ -9,7 +9,7 @@ mongoose.connect(process.env.DATABASE_URL)
 const EVENT_TRIGGER = 10
 const app = express()
 app.use(express.json())
-app.use(function (_req, res, next) {
+app.use(function(_req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
@@ -20,6 +20,11 @@ app.use(function (_req, res, next) {
 app.get('/', (_req, res) => res.send({ now: Date.now() }))
 app.post('/businesses', (req, res) => BusinessController.create(req, res))
 app.get('/businesses/:id', (req, res) => BusinessController.getOne(req, res))
+
+app.post('/replicate-prompt', async (req, res) => {
+  const result = await Replicate.prompt(req.body.prompt)
+  return res.send(result)
+})
 
 app.post('/purchase', async (req, res) => {
   const { context, business } = req.body
