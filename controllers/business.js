@@ -32,7 +32,7 @@ export default class BusinessController {
     }
 
     const bannerPrompt = generateWebsiteBannerPrompt(imageTags)
-    const banner = await promptImage(bannerPrompt, '896x912')
+    const banner = await promptImage(bannerPrompt)
 
     const business = await Business.create({
       philosophy,
