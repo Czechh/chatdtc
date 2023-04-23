@@ -2,8 +2,9 @@ import mongoose from 'mongoose'
 
 const businessSchema = new mongoose.Schema({
   name: String,
-  identity: String,
-  description: String,
+  philosophy: String,
+  thesis: String,
+  marketingInsight: String,
 })
 export const Business = mongoose.model('Business', businessSchema)
 
