@@ -1,6 +1,6 @@
 import { prompt } from '../openai.js'
 import { Business } from '../models.js'
-import { generateThesisPrompt } from './product_iteration.js'
+import { generateThesisPrompt } from '../product_iteration.js'
 
 export default class BusinessController {
   static async create(req, res) {
