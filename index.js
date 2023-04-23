@@ -35,9 +35,9 @@ app.post('/purchase', async (req, res) => {
   if (eventCount % EVENT_TRIGGER === 0) {
     // trigger mutation
     console.log('mutation triggered')
-    const business = await Models.Business.findOne({ _id: business }).exec()
+    const businessDb = await Models.Business.findOne({ _id: business }).exec()
     const events = await Models.Event.find({ business }).limit(3).exec()
-    await iterateProduct(business, events)
+    await iterateProduct(businessDb, events)
   }
 
   return res.send({ data: event })
@@ -50,9 +50,9 @@ app.post('/feedback', async (req, res) => {
 
   if (eventCount % EVENT_TRIGGER === 0) {
     console.log('mutation triggered')
-    const business = await Models.Business.findOne({ _id: business }).exec()
+    const businessDb = await Models.Business.findOne({ _id: business }).exec()
     const events = await Models.Event.find({ business }).limit(3).exec()
-    await iterateProduct(business, events)
+    await iterateProduct(businessDb, events)
   }
 
   return res.send({ data: event })
